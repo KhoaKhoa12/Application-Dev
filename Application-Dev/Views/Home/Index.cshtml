@@ -1,8 +1,29 @@
-﻿@{
+﻿@using Application_Dev.Utils;
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <h3>Are You A New User</h3>
+        <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-danger">Register your account</a>
+    }
+    else
+    {
+        if (User.IsInRole(Role.STORE_OWNER))
+        {
+            <a asp-controller="Books" asp-action="Index" class="btn btn-primary">Management Your Book Store</a>
+        }
+        if (User.IsInRole(Role.CUSTOMER))
+        {
+            <a asp-controller="Customer" asp-action="Index" class="btn btn-primary">Go To Shopping</a>
+
+        }
+        if (User.IsInRole(Role.ADMIN))
+        {
+            <a asp-controller="Admin" asp-action="Index" class="btn btn-primary">Go To Manager</a>
+
+        }
+    }
 </div>
