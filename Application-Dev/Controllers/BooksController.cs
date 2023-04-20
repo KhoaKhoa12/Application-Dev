@@ -1,7 +1,6 @@
 ﻿using Application_Dev.Data;
 using Application_Dev.Models;
 using Application_Dev.ViewModel;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
@@ -10,34 +9,33 @@ namespace Application_Dev.Controllers
 {
 	public class BooksController : Controller
 	{
-			// 1 - Declare ApplicationDbContext
 			private ApplicationDbContext _context;
 			public BooksController(ApplicationDbContext context)
 			{
 				_context = context;
 			}
 
-			// 2 - Search Book by Name
 			[HttpGet]
 			public async Task<IActionResult> Index(string searchString)
 			{
-				var books = from book in _context.Books select book;
+				var books = await _context.Books.ToListAsync();
 				if (!String.IsNullOrEmpty(searchString))
 				{
-					books = books.Where(s => s.NameBook!.Contains(searchString));
+					var searchBooks = await _context.Books.Where(s => s.NameBook!.Contains(searchString)).ToListAsync();
+					return View(searchBooks);
+
 				}
-				return View(await books.ToListAsync());
+				return View(books);
 			}
 
-			// 3 - Create Book Data
 			[HttpGet]
-			public IActionResult Create()
+			public async Task<IActionResult> Create()
 			{
 				var viewModel = new BookViewModel()
 				{
-					Categories = _context.Categories
+					Categories = await _context.Categories
 						.Where(c => c.Status == Enums.CategoryStatus.Accepted)
-						.ToList()
+						.ToListAsync()
 				};
 				return View(viewModel);
 			}
@@ -45,16 +43,6 @@ namespace Application_Dev.Controllers
 			[HttpPost]
 			public async Task<IActionResult> Create(BookViewModel viewModel)
 			{
-				//if (!ModelState.IsValid)
-				//{
-				//	viewModel = new BookViewModel
-				//	{
-				//		Categories = _context.Categories
-				//			.Where(c => c.Status == Enums.CategoryStatus.Accepted)
-				//			.ToList()
-				//	};
-				//	return View(viewModel);
-				//}
 
 				using (var memoryStream = new MemoryStream())
 				{
@@ -76,21 +64,20 @@ namespace Application_Dev.Controllers
 			}
 
 
-			// 4 - Delete Book Data
 			[HttpGet]
-			public IActionResult Delete(int id)
+			public async Task<IActionResult> Delete(int id)
 			{
-				var bookInDb = _context.Books.SingleOrDefault(t => t.Id == id);
+				var bookInDb = await _context.Books.SingleOrDefaultAsync(t => t.Id == id);
 				if (bookInDb is null)
 				{
 					return NotFound();
 				}
 				_context.Books.Remove(bookInDb);
 				_context.SaveChanges();
+
 				return RedirectToAction("Index");
 			}
 
-			// 5 - Edit Book Data
 			[HttpGet]
 			public IActionResult Edit(int id)
 			{
@@ -143,7 +130,6 @@ namespace Application_Dev.Controllers
 				return RedirectToAction("Index");
 			}
 
-			// 6 - View Book Details
 			[HttpGet]
 			public IActionResult Details(int id)
 			{
@@ -160,8 +146,5 @@ namespace Application_Dev.Controllers
 
 				return View(bookInDb);
 			}
-
-
-		
 	}
 }

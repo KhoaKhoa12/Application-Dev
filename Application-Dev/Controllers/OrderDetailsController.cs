@@ -22,6 +22,7 @@ namespace Application_Dev.Controllers
 			this.context = context;
 			this.userManager = userManager;
 		}
+
 		[HttpGet]
 		public IActionResult Index(int id)
 		{
@@ -51,6 +52,7 @@ namespace Application_Dev.Controllers
 
 			return View(cart);
 		}
+
 		[HttpGet]
 		public IActionResult Delete (int id)
 		{

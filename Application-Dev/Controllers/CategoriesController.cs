@@ -20,12 +20,12 @@ namespace Application_Dev.Controllers
         }
 
 
-        // 2 - Create Category Data
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult Create(Category category)
         {
@@ -37,9 +37,8 @@ namespace Application_Dev.Controllers
 
             _context.Add(newCategory);
             _context.SaveChanges();
+
             return RedirectToAction("Index");
         }
-
-
     }
 }

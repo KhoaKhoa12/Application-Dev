@@ -2,18 +2,9 @@
 using Application_Dev.Models;
 using Application_Dev.Utils;
 using Application_Dev.ViewModel;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Net.Http;
-using static Application_Dev.Areas.Identity.Pages.Account.LoginModel;
 
 
 
