@@ -45,16 +45,16 @@ namespace Application_Dev.Controllers
 			[HttpPost]
 			public async Task<IActionResult> Create(BookViewModel viewModel)
 			{
-				if (!ModelState.IsValid)
-				{
-					viewModel = new BookViewModel
-					{
-						Categories = _context.Categories
-							.Where(c => c.Status == Enums.CategoryStatus.Accepted)
-							.ToList()
-					};
-					return View(viewModel);
-				}
+				//if (!ModelState.IsValid)
+				//{
+				//	viewModel = new BookViewModel
+				//	{
+				//		Categories = _context.Categories
+				//			.Where(c => c.Status == Enums.CategoryStatus.Accepted)
+				//			.ToList()
+				//	};
+				//	return View(viewModel);
+				//}
 
 				using (var memoryStream = new MemoryStream())
 				{
