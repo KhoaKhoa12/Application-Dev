@@ -131,40 +131,20 @@ namespace Application_Dev.Controllers
 
 
         [HttpGet]
-        public IActionResult ShowCategoriesInProgress()
+        public IActionResult ManageCategory()
         {
             var categories = _context.Categories
                 .Where(t => t.Status == Enums.CategoryStatus.InProgess)
                 .ToList();
 
-            return View("VerifyCategoryRequest", categories);
-        }
-
-        [HttpGet]
-        public IActionResult VerifyCategoryRequest(string name, int id)
-        {
-
-            var listCategory = from Category in _context.Categories select Category;           
-            var categoryAfterUpdate = _context.Categories.SingleOrDefault(c => c.Id == id);
-
-            if (name == "accept")
-            {
-                AcceptCategoryRequest(id);
-
-            }
-            if (name == "reject")
-
-            {
-                RejectCategoryRequest(id);
-            }
-
-            return RedirectToAction(nameof(ShowCategoriesInProgress));
+            return View("ManageCategory", categories);
         }
 
 
 
+
         [HttpGet]
-        public IActionResult AcceptCategoryRequest(int id)
+        public IActionResult AcceptCategory(int id)
         {
             var categoryVerify = _context.Categories.SingleOrDefault(c => c.Id == id);
 
@@ -176,11 +156,11 @@ namespace Application_Dev.Controllers
             categoryVerify.Status = Enums.CategoryStatus.Accepted;
             _context.SaveChanges();
                
-            return RedirectToAction("VerifyCategoryRequest");
+            return RedirectToAction("ManageCategory");
         } 
 
         [HttpGet]
-        public IActionResult RejectCategoryRequest(int id)
+        public IActionResult RejectCategory(int id)
         {
             var categoryVerify = _context.Categories.SingleOrDefault(c => c.Id == id);
 
@@ -192,7 +172,7 @@ namespace Application_Dev.Controllers
             categoryVerify.Status = Enums.CategoryStatus.Rejected;
             _context.SaveChanges();
 
-            return RedirectToAction("VerifyCategoryRequest");
+            return RedirectToAction("ManageCategory");
         }
 
        

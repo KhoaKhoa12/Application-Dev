@@ -5,30 +5,16 @@
     ViewData["Title"] = "Index";
 }
 
-<nav>
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a asp-controller="Customer" asp-action="Index" style="text-decoration: NONE;">Home</a></li>
-        <li class="breadcrumb-item"><a asp-controller="Orders" asp-action="Index" style="text-decoration: NONE;">List Orders</a></li>
-        <li class="breadcrumb-item active">Cart</li>
-    </ol>
-</nav>
 
 @if (Model.orderDetails.Count != 0)
 {
-    <section class="h-100" style="background-color: aliceblue;border-radius: 10px;">
+    <section class="h-100" style="border-radius: 10px;">
         <div class="container h-100 py-5">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-10">
 
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h3 class="fw-normal mb-0 text-black">Shopping Cart</h3>
-                        <div>
-                            <p class="mb-0">
-                                <span class="text-muted">Sort by:</span> <a href="#!" class="text-body">
-                                    price <i class="fas fa-angle-down mt-1"></i>
-                                </a>
-                            </p>
-                        </div>
+                        <h3 class="fw-normal mb-0 text-black">Cart</h3>
                     </div>
                     <form asp-controller="OrderDetails" asp-action="Edit" method="post">
 
@@ -84,7 +70,7 @@
                         <div class="card">
                             <div class="card-body" style="display:flex;align-items: baseline;">
                                 @if(@Model.orderDetails[0].Order.StatusOrder == OrderStatus.Unconfirmed){
-                                <button type="submit" class="btn btn-warning btn-block btn-lg">Purchase</button>
+                                <button type="submit" class="btn btn-primary">Purchase</button>
                                 }                               
                                 <p style="    padding-left: 100px;">Total: @Model.totalPrice </p>
                             </div>
@@ -107,10 +93,8 @@ else
                     </div>
                     <div class="card-body cart">
                         <div class="col-sm-12 empty-cart-cls text-center">
-                            <img src="https://cdn.dribbble.com/users/44167/screenshots/4199208/media/e2f1188c18430f9ab0af074ae7a88ee8.png?compress=1&resize=400x300&vertical=top" width="330" height="330" class="img-fluid mb-4 mr-3">
                             <h5><strong>Your Cart is Empty</strong></h5>
-                            <h6>Add something to make me happy :)</h6>
-                            <a asp-action="Index" asp-controller="Customer" class="btn btn-primary cart-btn-transform m-3" data-abc="true">Continue shopping</a>
+                            <a asp-action="Index" asp-controller="Customer" class="btn btn-primary cart-btn-transform m-3" data-abc="true">Shopping</a>
                         </div>
                     </div>
                 </div>

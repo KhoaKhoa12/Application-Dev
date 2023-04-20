@@ -5,27 +5,13 @@
 }
 @using Application_Dev.DTOs.Responses
 @model IEnumerable<BookView>
-
-<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style=" height: 500px; display: flex;">
-    <div class="carousel-inner">
-
-        <div class="carousel-item active">
-            <img src="https://songhantourist.com/upload/articles-images/images/Kdokawa_from%20Kadokawa%20Culture%20Museum.jpeg" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-            <img src="http://vanmauchonloc.com/wp-content/uploads/2016/05/world-in-a-book.jpg" class="d-block w-100" alt="...">
-        </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-</div>
+<form asp-action="Index" asp-controller="Customer" method="get">
+    <input type="text" name="nameOrCategoryBook" placeholder="Search Book " />
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
 <section style="background-color: #eee;">
+
+        
     <div class="container py-5">
         <div class="row">
             @foreach (var item in Model)

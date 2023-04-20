@@ -8,11 +8,6 @@
     int RowNo = 0;
 }
 
-<h1>Admin page</h1>
-<a asp-action="ShowCategoriesInProgress" asp-controller="Admin" class="btn btn-primary">Verify Category Request</a>
-<br />
-<h2>All Users</h2>
-
 @{
     var message = TempData["Message"];
 }
@@ -32,13 +27,11 @@
   </form>
 
 
-
 <table class="table">
   <thead>
     <tr>
       <th scope="col">No</th>
       <th scope="col">User Email</th>
-      <th scope="col">Email Confirmed</th>
       <th scope="col">Action</th>
     </tr> 
   </thead>
@@ -47,7 +40,6 @@
       <tr>
         <th scope="row">@{RowNo++;} @RowNo</th>
         <td>@item.Email</td>
-                <td scope="row">@item.EmailConfirmed</td>
         <td><a asp-action="ChangePassword" asp-controller="Admin" asp-route-id=@item.Id>Change Password</a></td>
       </tr>
   }

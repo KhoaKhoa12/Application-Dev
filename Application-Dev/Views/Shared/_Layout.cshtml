@@ -23,22 +23,28 @@
                         @if (User.IsInRole(Role.STORE_OWNER))
                         {
                             <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Books" asp-action="Index">Book Management</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Categories" asp-action="Index">Category Management</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Records" asp-action="Index">Record Management</a>
+                            </li>
+                           
                         }
                         @if (User.IsInRole(Role.CUSTOMER))
-                        {
+                        {     
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Views" asp-controller="Customer" asp-action="Index">View Book</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="OrderDetails" asp-action="Index">Cart</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="Views" asp-controller="Customer" asp-action="Help">Help</a>
                             </li>
-                            <li>
-                                <form asp-action="Index" asp-controller="Customer" method="get">
-                                    <input type="text" name="nameOrCategoryBook" placeholder="Search by Name Or Category" />
-                                    <button type="submit" class="btn btn-primary">Search</button>
-                                </form>
-                            </li>
+                     
                         }
                         @if (User.IsInRole(Role.STORE_OWNER))
                         {
@@ -47,7 +53,12 @@
                         }
                         @if (User.IsInRole(Role.ADMIN))
                         {
-
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Views" asp-controller="Admin" asp-action="ManageCategory">Manage Category</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Views" asp-controller="Admin" asp-action="Index">Manage Account</a>
+                            </li>
                         }
                     </ul>
                     <partial name="_LoginPartial" />
