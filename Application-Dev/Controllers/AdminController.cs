@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 
-
 namespace Application_Dev.Controllers
 {
     public class AdminController : Controller
