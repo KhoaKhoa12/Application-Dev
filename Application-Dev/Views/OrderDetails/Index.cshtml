@@ -55,7 +55,7 @@
                                             {
                                                 <a asp-action="Delete" asp-route-id="@Model.orderDetails[i].Id">Delete |</a>
                                             }
-                                            <a asp-controller="Customer" asp-action="Detail" asp-route-id=@Model.orderDetails[i].BookId>Details</a>
+                                            <a asp-controller="Books" asp-action="DetailBooksForCustomer" asp-route-id=@Model.orderDetails[i].BookId>Details</a>
                                         </div>
                                     </div>
                                 </div>

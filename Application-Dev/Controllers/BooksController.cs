@@ -1,4 +1,5 @@
 ﻿using Application_Dev.Data;
+using Application_Dev.DTOs.Responses;
 using Application_Dev.Models;
 using Application_Dev.ViewModel;
 using Microsoft.AspNetCore.Mvc;
@@ -146,5 +147,53 @@ namespace Application_Dev.Controllers
 
 				return View(bookInDb);
 			}
-	}
+
+        [HttpGet]
+        public IActionResult IndexBooksForCustomer(string nameOrCategoryBook)
+
+        {
+            List<BookView> listBookInHome = new List<BookView>();
+            var booksToBuy = _context.Books.Include(t => t.Category).ToList();
+
+            if (!String.IsNullOrEmpty(nameOrCategoryBook))
+            {
+                booksToBuy = booksToBuy.Where(t => t.Category.NameCategory.ToLower().Contains(nameOrCategoryBook.ToLower())
+                || t.NameBook.ToLower().Contains(nameOrCategoryBook.ToLower())).ToList();
+            }
+            foreach (var item in booksToBuy)
+            {
+                BookView book = new BookView();
+                book.Id = item.Id;
+                book.NameBook = item.NameBook;
+                book.QuantityBook = item.QuantityBook;
+                book.PriceBook = item.Price;
+                book.ImageBook = ConvertByteArrayToStringBase64(item.Image);
+                listBookInHome.Add(book);
+            }
+            return View(listBookInHome);
+        }
+
+        [NonAction]
+        private string ConvertByteArrayToStringBase64(byte[] imageArray)
+        {
+            string imageBase64Data = Convert.ToBase64String(imageArray);
+
+            return string.Format("data:image/jpg;base64, {0}", imageBase64Data);
+        }
+
+        [HttpGet]
+        public IActionResult DetailBooksForCustomer(int id)
+        {
+            var book = _context.Books.SingleOrDefault(x => x.Id == id);
+            BookView bookView = new BookView();
+            bookView.Id = book.Id;
+            bookView.NameBook = book.NameBook;
+            bookView.QuantityBook = book.QuantityBook;
+            bookView.PriceBook = book.Price;
+            bookView.DescriptionBook = book.InformationBook;
+            bookView.ImageBook = ConvertByteArrayToStringBase64(book.Image);
+
+            return View(bookView);
+        }
+    }
 }
