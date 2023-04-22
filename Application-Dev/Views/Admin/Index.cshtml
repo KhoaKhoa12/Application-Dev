@@ -18,14 +18,9 @@
 }
 
 
-   <form method="POST">
-       <select asp-for="@Model.Input.Role" class="form-control"
-                        asp-items="@Model.RoleSelectList">              
-        </select>
-        <br />
-        <button type="submit" class="btn btn-primary">Select</button>
-  </form>
-
+<a asp-action="Index" asp-controller="Admin" asp-route-name="AllUser" class="btn btn-primary">View All User</a>
+<a asp-action="Index" asp-controller="Admin" asp-route-name="customer" class="btn btn-primary">View All Customer</a>
+<a asp-action="Index" asp-controller="Admin" asp-route-name="storeOwner" class="btn btn-primary">View All Store Owner</a>
 
 <table class="table">
   <thead>

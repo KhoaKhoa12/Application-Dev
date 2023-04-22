@@ -14,13 +14,7 @@ namespace Application_Dev.Controllers
         private ApplicationDbContext _context;
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        public SelectList RoleSelectList { get; set; } = new SelectList(new List<string>
-          {
-            "All User",
-            Role.STORE_OWNER,
-            Role.CUSTOMER
-          }
-        ); 
+
         public AdminController(ApplicationDbContext context, 
                                 UserManager<User> userManager, 
                                 RoleManager<IdentityRole> roleManager)
@@ -30,16 +24,14 @@ namespace Application_Dev.Controllers
             _roleManager = roleManager;
         }
 
-        public List<Category> CategoriesHidden { set; get; } = new List<Category>();
-
-
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string name)
         {
 
-
-            var model = new AdminViewModel();
+            if(name == "AllUser" || name == null)
+            {
+             var model = new AdminViewModel();
 
             foreach (var user in _userManager.Users)
             {
@@ -49,44 +41,23 @@ namespace Application_Dev.Controllers
                 }
             }
 
-            model.RoleSelectList = RoleSelectList; 
-
-
             return View(model);
-        }
-
-
-        [HttpPost]
-        public async Task<IActionResult> Index(AdminViewModel adminViewModel)
-        {
-            var adminUser = new AdminViewModel();
-         
-            var roleSelectedInView = adminViewModel.Input.Role; 
-
-            if(roleSelectedInView == Role.STORE_OWNER)
-            {
-
-                adminUser = getUserByRole(Role.STORE_OWNER); 
             }
-            else if(roleSelectedInView == Role.CUSTOMER)
-            {
-                adminUser = getUserByRole(Role.CUSTOMER);
-            }
+
             else
             {
-                adminUser = new AdminViewModel();
+                var model = new AdminViewModel();
 
                 foreach (var user in _userManager.Users)
                 {
-                    if (!await _userManager.IsInRoleAsync(user, Role.ADMIN))
+                    if (await _userManager.IsInRoleAsync(user, name))
                     {
-                        adminUser.Users.Add(user);
+                        model.Users.Add(user);
                     }
                 }
-            }
 
-            adminUser.RoleSelectList = RoleSelectList;
-            return View(adminUser);
+                return View(model);
+            }
         }
 
         [HttpGet]
@@ -174,21 +145,5 @@ namespace Application_Dev.Controllers
 
             return RedirectToAction("ManageCategory");
         }
-
-       
-
-
-        [NonAction]
-        private AdminViewModel getUserByRole(string role)
-        {
-            var adminUser = new AdminViewModel()
-            {
-                Users = (List<User>)_userManager.GetUsersInRoleAsync(role).Result
-            };
-            return adminUser;
-        }
-
-
-
     }
 }
