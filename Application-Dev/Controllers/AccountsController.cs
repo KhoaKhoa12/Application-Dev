@@ -4,24 +4,21 @@ using Application_Dev.Utils;
 using Application_Dev.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 
 namespace Application_Dev.Controllers
 {
-    public class AdminController : Controller
+    public class AccountsController : Controller
     {
         private ApplicationDbContext _context;
         private readonly UserManager<User> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AdminController(ApplicationDbContext context, 
+        public AccountsController(ApplicationDbContext context, 
                                 UserManager<User> userManager, 
                                 RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             _userManager = userManager;
-            _roleManager = roleManager;
         }
 
 
@@ -101,49 +98,5 @@ namespace Application_Dev.Controllers
 
 
 
-        [HttpGet]
-        public IActionResult ManageCategory()
-        {
-            var categories = _context.Categories
-                .Where(t => t.Status == Enums.CategoryStatus.InProgess)
-                .ToList();
-
-            return View("ManageCategory", categories);
-        }
-
-
-
-
-        [HttpGet]
-        public IActionResult AcceptCategory(int id)
-        {
-            var categoryVerify = _context.Categories.SingleOrDefault(c => c.Id == id);
-
-            if (categoryVerify == null)
-            {
-                return BadRequest();
-            }
-
-            categoryVerify.Status = Enums.CategoryStatus.Accepted;
-            _context.SaveChanges();
-               
-            return RedirectToAction("ManageCategory");
-        } 
-
-        [HttpGet]
-        public IActionResult RejectCategory(int id)
-        {
-            var categoryVerify = _context.Categories.SingleOrDefault(c => c.Id == id);
-
-            if (categoryVerify == null)
-            {
-                return BadRequest();
-            }
-
-            categoryVerify.Status = Enums.CategoryStatus.Rejected;
-            _context.SaveChanges();
-
-            return RedirectToAction("ManageCategory");
-        }
     }
 }

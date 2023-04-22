@@ -29,7 +29,7 @@
                                 <a class="nav-link text-dark" asp-controller="Categories" asp-action="Index">Category Management</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Records" asp-action="Index">Record Management</a>
+                                <a class="nav-link text-dark" asp-controller="Orders" asp-action="ViewOrdersForStoreOwner">Record Management</a>
                             </li>
                            
                         }
@@ -54,10 +54,10 @@
                         @if (User.IsInRole(Role.ADMIN))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Views" asp-controller="Admin" asp-action="ManageCategory">Manage Category</a>
+                                <a class="nav-link text-dark" asp-area="Views" asp-controller="Categories" asp-action="ManageCategory">Manage Category</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Views" asp-controller="Admin" asp-action="Index">Manage Account</a>
+                                <a class="nav-link text-dark" asp-area="Views" asp-controller="Accounts" asp-action="Index">Manage Account</a>
                             </li>
                         }
                     </ul>

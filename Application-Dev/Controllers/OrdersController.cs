@@ -22,6 +22,7 @@ namespace ASM_App_Dev.Controllers
 			this.context = context;
 			this.userManager = userManager;
 		}
+
 		public IActionResult Index()
 		{
 			IEnumerable<Order> orders = context
@@ -30,7 +31,16 @@ namespace ASM_App_Dev.Controllers
 		}
 
 
-		[HttpGet]
+        public IActionResult ViewOrdersForStoreOwner()
+        {
+            IEnumerable<Order> orders = context.Orders
+                .Include(t => t.User)
+                .ToList();
+            return View(orders);
+        }
+
+
+        [HttpGet]
 		public IActionResult Create(int id)
 		{
 

@@ -17,7 +17,7 @@ namespace Application_Dev.Controllers
 			}
 
 			[HttpGet]
-			public async Task<IActionResult> Index(string searchString)
+			public async Task<IActionResult> ViewAllBook(string searchString)
 			{
 				var books = await _context.Books.ToListAsync();
 				if (!String.IsNullOrEmpty(searchString))
@@ -65,7 +65,7 @@ namespace Application_Dev.Controllers
 			}
 
 
-			[HttpGet]
+			[HttpDelete]
 			public async Task<IActionResult> Delete(int id)
 			{
 				var bookInDb = await _context.Books.SingleOrDefaultAsync(t => t.Id == id);
@@ -98,7 +98,7 @@ namespace Application_Dev.Controllers
 				return View(viewModel);
 			}
 
-			[HttpPost]
+			[HttpPut]
 			public IActionResult Edit(BookViewModel viewModel)
 			{
 				var bookInDb = _context.Books.SingleOrDefault(t => t.Id == viewModel.Book.Id);
@@ -149,7 +149,7 @@ namespace Application_Dev.Controllers
 			}
 
         [HttpGet]
-        public IActionResult IndexBooksForCustomer(string nameOrCategoryBook)
+        public IActionResult ViewBooksForCustomer(string nameOrCategoryBook)
 
         {
             List<BookView> listBookInHome = new List<BookView>();
@@ -182,7 +182,7 @@ namespace Application_Dev.Controllers
         }
 
         [HttpGet]
-        public IActionResult DetailBooksForCustomer(int id)
+        public IActionResult DetailsBookForCustomer(int id)
         {
             var book = _context.Books.SingleOrDefault(x => x.Id == id);
             BookView bookView = new BookView();

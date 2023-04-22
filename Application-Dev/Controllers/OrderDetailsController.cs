@@ -85,5 +85,22 @@ namespace Application_Dev.Controllers
 			context.SaveChanges();
 			return RedirectToAction("Checkout", "Orders");
 		}
-	}
+
+        public IActionResult DetailsForStoreOwner(int id)
+        {
+            CheckOut checkOut = new CheckOut();
+
+            var ordersDetails = context.OrderDetails
+           .Include(t => t.Order).Include(t => t.Order.User).Include(t => t.Book)
+           .Where(t => t.OrderId == id).ToList();
+
+
+            checkOut.orderDetails = ordersDetails;
+            checkOut.Name = ordersDetails[0].Order.User.FullName;
+            checkOut.Address = ordersDetails[0].Order.User.Address;
+            checkOut.TotalPrice = ordersDetails[0].Order.PriceOrder;
+
+            return View(checkOut);
+        }
+    }
 }
