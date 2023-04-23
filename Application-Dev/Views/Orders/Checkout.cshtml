@@ -44,7 +44,7 @@
 
     <div class="rounded d-flex flex-column p-2" style="background-color: #f8f9fa; ">
         <div class="p-2 me-3">
-            <h4>Order Recap</h4>
+            <h4>Informations</h4>
         </div>
         <div class="p-2 d-flex">
             <div class="col-8">Name: </div>
@@ -63,7 +63,7 @@
         <div class="border-top px-2 mx-2"></div>
         <div class="p-2 d-flex pt-3">
             <div class="col-8"><b>Total Order</b></div>
-            <div class="ms-auto"><b class="text-success">@Model.TotalPrice VND</b></div>
+            <div class="ms-auto">@Model.TotalPrice VND</div>
         </div>
 
         <a asp-action="Purchase" asp-controller="Orders" class="btn btn-primary">Purchase</a>

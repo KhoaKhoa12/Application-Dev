@@ -17,7 +17,7 @@
         }
         if (User.IsInRole(Role.CUSTOMER))
         {
-            <a asp-controller="Books" asp-action="IndexBooksForCustomer" class="btn btn-primary">Go To Shopping</a>
+            <a asp-controller="Books" asp-action="ViewBooksForCustomer" class="btn btn-primary">Go To Shopping</a>
 
         }
         if (User.IsInRole(Role.ADMIN))

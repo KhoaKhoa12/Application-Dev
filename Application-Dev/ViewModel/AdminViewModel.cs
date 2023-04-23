@@ -10,6 +10,5 @@ namespace Application_Dev.ViewModel
     {
         public List<User> Users { set; get; } = new List<User>();
         public List<Category> Categories { set; get; } = new List<Category>();
-        public List<Category> CategoriesHidden { set; get; } = new List<Category>();
     }
 }

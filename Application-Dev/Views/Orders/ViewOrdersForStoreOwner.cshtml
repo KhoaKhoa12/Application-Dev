@@ -39,7 +39,7 @@
                         <td>@item.DateOrder</td>
                         <td>@item.StatusOrder</td>
                         <td>
-                            <a asp-controller="Records" asp-action="Details" asp-route-id=@item.Id class="btn btn-primary btn-sm">Details</a>
+                            <a asp-controller="OrderDetails" asp-action="DetailsForStoreOwner" asp-route-id=@item.Id class="btn btn-primary btn-sm">Details</a>
                         </td>
                     </tr>
                 }

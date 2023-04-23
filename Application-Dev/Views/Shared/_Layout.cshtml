@@ -23,7 +23,7 @@
                         @if (User.IsInRole(Role.STORE_OWNER))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Books" asp-action="Index">Book Management</a>
+                                <a class="nav-link text-dark" asp-controller="Books" asp-action="ViewAllBook">Book Management</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Categories" asp-action="Index">Category Management</a>
@@ -36,7 +36,7 @@
                         @if (User.IsInRole(Role.CUSTOMER))
                         {     
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Views" asp-controller="Books" asp-action="IndexBooksForCustomer">View Book</a>
+                                <a class="nav-link text-dark" asp-area="Views" asp-controller="Books" asp-action="ViewBooksForCustomer">View Book</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="OrderDetails" asp-action="Index">Cart</a>
