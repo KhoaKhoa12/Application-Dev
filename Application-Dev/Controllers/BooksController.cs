@@ -61,11 +61,11 @@ namespace Application_Dev.Controllers
 					_context.Books.Add(newBook);
 					await _context.SaveChangesAsync();
 				}
-				return RedirectToAction("Index");
+				return RedirectToAction("ViewAllBook");
 			}
 
 
-			[HttpDelete]
+			[HttpGet]
 			public async Task<IActionResult> Delete(int id)
 			{
 				var bookInDb = await _context.Books.SingleOrDefaultAsync(t => t.Id == id);
@@ -76,7 +76,7 @@ namespace Application_Dev.Controllers
 				_context.Books.Remove(bookInDb);
 				_context.SaveChanges();
 
-				return RedirectToAction("Index");
+				return RedirectToAction("ViewAllBook");
 			}
 
 			[HttpGet]
@@ -128,7 +128,7 @@ namespace Application_Dev.Controllers
 
 				_context.SaveChanges();
 
-				return RedirectToAction("Index");
+				return RedirectToAction("ViewAllBook");
 			}
 
 			[HttpGet]
