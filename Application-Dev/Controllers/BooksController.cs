@@ -98,25 +98,13 @@ namespace Application_Dev.Controllers
 				return View(viewModel);
 			}
 
-			[HttpPut]
+			[HttpPost]
 			public IActionResult Edit(BookViewModel viewModel)
 			{
 				var bookInDb = _context.Books.SingleOrDefault(t => t.Id == viewModel.Book.Id);
 				if (bookInDb is null)
 				{
 					return BadRequest();
-				}
-
-				if (!ModelState.IsValid)
-				{
-					viewModel = new BookViewModel
-					{
-						Book = viewModel.Book,
-						Categories = _context.Categories
-						 .Where(c => c.Status == Enums.CategoryStatus.Accepted)
-						 .ToList()
-					};
-					return View(viewModel);
 				}
 
 
